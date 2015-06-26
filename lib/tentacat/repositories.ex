@@ -1,5 +1,4 @@
 defmodule Tentacat.Repositories do
-  import Tentacat
   alias Tentacat.Client
   @moduledoc """
   The Repository Webhooks API allows repository admins to manage the post-receive hooks for a repository.
@@ -17,7 +16,7 @@ defmodule Tentacat.Repositories do
   """
   @spec list_mine(Client.t) :: Tentacat.response
   def list_mine(client) do
-    get "user/repos", client
+    Tentacat.get "user/repos", client
   end
 
   @doc """
@@ -31,7 +30,7 @@ defmodule Tentacat.Repositories do
   """
   @spec list_users(binary, Client.t) :: Tentacat.response
   def list_users(owner, client \\ %Client{}) do
-    get "users/#{owner}/repos", client
+    Tentacat.get "users/#{owner}/repos", client
   end
 
   @doc """
@@ -45,7 +44,21 @@ defmodule Tentacat.Repositories do
   """
   @spec list_orgs(binary, Client.t) :: Tentacat.response
   def list_orgs(org, client \\ %Client{}) do
-    get "orgs/#{org}/repos", client
+    Tentacat.get "orgs/#{org}/repos", client
+  end
+
+  @doc """
+  Get a specific repository
+
+  ## Example
+
+  Tentacat.Repositories.find("elixir-lang/elixir", client)
+
+  More info at: https://developer.github.com/v3/repos/#get
+  """
+  @spec list_users(binary, Client.t) :: Tentacat.response
+  def get(name, client \\ %Client{}) do
+    Tentacat.get "repos/#{name}", client
   end
 
 
