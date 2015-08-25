@@ -31,4 +31,10 @@ defmodule Tentacat.Repositories.Issues do
   def find(owner, repo, number, client \\ %Client{}) do
     get "repos/#{owner}/#{repo}/issues/#{number}", client
   end
+
+  @spec comment(binary, binary, integer, binary, Client.t) :: Tentacat.response
+  def comment(owner, repo, number, body, client \\ %Client{}) do
+    post "repos/#{owner}/#{repo}/issues/#{number}/comments", client, %{body: body}
+  end
+
 end
